@@ -21,6 +21,7 @@ private class TestPropertyController {
      * getPagedPropertyList runs WITH USER_MODE, so exercising it needs a user carrying
      * the 'dreamhouse' permission set's field access — the running test user alone isn't
      * enough (mirrors the FLS the LWC's own users get via that permission set).
+     * @return a newly inserted Standard-profile user assigned the 'dreamhouse' permission set
      */
     private static User createDreamhouseTestUser() {
         Profile standardUserProfile = [

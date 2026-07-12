@@ -15,7 +15,11 @@ public with sharing class PropertyController {
      * @param sortBy Sort choice: 'price' (default) or 'pricePerSqm'
      * @return PagedResult object holding the paged and filtered list of properties
      */
+    // PMD.ApexSOQLInjection false positive: orderByClause below is spliced from a
+    // fixed set of two literal strings produced by validateAndNormalizeSortBy,
+    // never from raw user input.
     @AuraEnabled(cacheable=true scope='global')
+    @SuppressWarnings('PMD.ApexSOQLInjection')
     public static PagedResult getPagedPropertyList(
         String searchKey,
         Decimal maxPrice,
@@ -31,7 +35,7 @@ public with sharing class PropertyController {
         Integer safeMinBathrooms = minBathrooms ?? 0;
         Integer safePageSize = pageSize ?? DEFAULT_PAGE_SIZE;
         Integer safePageNumber = pageNumber ?? 1;
-        String safeSortBy = normalizeSortBy(sortBy);
+        String safeSortBy = validateAndNormalizeSortBy(sortBy);
 
         String searchPattern = '%' + searchKey + '%';
         Integer offset = (safePageNumber - 1) * safePageSize;
@@ -52,7 +56,7 @@ public with sharing class PropertyController {
         ];
 
         // ORDER BY can't be bound like a normal value, so the clause is picked from a
-        // fixed whitelist of two literals (never from raw user input) and spliced into
+        // fixed set of two literals (never from raw user input) and spliced into
         // the query text; the rest of the query stays a single shared definition.
         String orderByClause = (safeSortBy == SORT_PRICE_PER_SQM)
             ? 'ORDER BY Price_Per_Sqm__c ASC NULLS LAST'
@@ -74,21 +78,23 @@ public with sharing class PropertyController {
     }
 
     /**
-     * Validates the requested sort choice against the two supported values.
+     * Validates the requested sort choice against the two supported values, and
+     * normalizes a missing/blank value to the default.
      * A missing/blank value defaults to sorting by price; any other value is rejected
      * rather than silently defaulted, since it can only originate from a malformed call.
+     * @param sortBy the raw sort choice requested by the caller
+     * @return the normalized sort choice ('price' or 'pricePerSqm')
      */
-    private static String normalizeSortBy(String sortBy) {
+    private static String validateAndNormalizeSortBy(String sortBy) {
         if (String.isBlank(sortBy)) {
             return SORT_PRICE;
         }
         if (sortBy == SORT_PRICE || sortBy == SORT_PRICE_PER_SQM) {
             return sortBy;
         }
-        AuraHandledException ex = new AuraHandledException(
-            'Invalid sortBy value: ' + sortBy
-        );
-        ex.setMessage('Invalid sortBy value: ' + sortBy);
+        String message = 'Invalid sortBy value: ' + sortBy;
+        AuraHandledException ex = new AuraHandledException(message);
+        ex.setMessage(message);
         throw ex;
     }
 

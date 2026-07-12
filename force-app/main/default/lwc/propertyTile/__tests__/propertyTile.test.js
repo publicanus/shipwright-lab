@@ -71,6 +71,8 @@ describe('c-property-tile', () => {
         );
         expect(formattedNumbers.length).toBe(2);
         expect(formattedNumbers[1].value).toBe(PROPERTY.Price_Per_Sqm__c);
+        expect(formattedNumbers[1].formatStyle).toBe('currency');
+        expect(formattedNumbers[1].currencyCode).toBe('USD');
     });
 
     it('shows no price-per-square-meter figure when area is not recorded', () => {

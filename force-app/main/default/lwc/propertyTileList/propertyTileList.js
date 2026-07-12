@@ -10,6 +10,7 @@ import PROPERTYSELECTEDMC from '@salesforce/messageChannel/PropertySelected__c';
 import getPagedPropertyList from '@salesforce/apex/PropertyController.getPagedPropertyList';
 
 const PAGE_SIZE = 9;
+const SORT_PRICE = 'price';
 
 export default class PropertyTileList extends LightningElement {
     pageNumber = 1;
@@ -19,7 +20,7 @@ export default class PropertyTileList extends LightningElement {
     maxPrice = 9999999;
     minBedrooms = 0;
     minBathrooms = 0;
-    sortBy = 'price';
+    sortBy = SORT_PRICE;
 
     @wire(MessageContext)
     messageContext;
