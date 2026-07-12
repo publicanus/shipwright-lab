@@ -1,0 +1,6 @@
+{
+    "enabledPlugins": {
+        "shipwright@spire": true,
+        "salesforce-docs-extractor@spire": true
+    }
+}
