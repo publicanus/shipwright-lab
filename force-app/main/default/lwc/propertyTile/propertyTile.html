@@ -15,6 +15,16 @@
                         value={property.Price__c}
                     ></lightning-formatted-number>
                 </p>
+                <template lwc:if={hasPricePerSqm}>
+                    <p>
+                        <lightning-formatted-number
+                            format-style="currency"
+                            currency-code="USD"
+                            value={property.Price_Per_Sqm__c}
+                        ></lightning-formatted-number>
+                        /m²
+                    </p>
+                </template>
             </div>
         </div>
     </a>

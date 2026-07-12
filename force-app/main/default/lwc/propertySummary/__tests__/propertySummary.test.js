@@ -71,6 +71,25 @@ describe('c-property-summary', () => {
         expect(formEl.recordId).toStrictEqual(mockPropertyRecord.id);
     });
 
+    it('includes the price-per-square-meter field in the record form field list', async () => {
+        const element = createElement('c-property-summary', {
+            is: PropertySummary
+        });
+        element.recordId = mockPropertyRecord.id;
+        document.body.appendChild(element);
+
+        getRecord.emit(mockPropertyRecord);
+
+        await flushPromises();
+
+        const formEl = element.shadowRoot.querySelector(
+            'lightning-record-form'
+        );
+        expect(formEl.fields).toContainEqual(
+            expect.objectContaining({ fieldApiName: 'Price_Per_Sqm__c' })
+        );
+    });
+
     it('is accessible when property is selected', async () => {
         const element = createElement('c-property-summary', {
             is: PropertySummary

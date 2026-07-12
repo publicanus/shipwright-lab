@@ -29,4 +29,11 @@ export default class PropertyTile extends NavigationMixin(LightningElement) {
     get backgroundImageStyle() {
         return `background-image:url(${this.property.Thumbnail__c})`;
     }
+
+    get hasPricePerSqm() {
+        return (
+            this.property.Price_Per_Sqm__c !== undefined &&
+            this.property.Price_Per_Sqm__c !== null
+        );
+    }
 }

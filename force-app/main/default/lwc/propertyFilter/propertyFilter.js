@@ -4,12 +4,20 @@ import FILTERSCHANGEMC from '@salesforce/messageChannel/FiltersChange__c';
 
 const DELAY = 350;
 const MAX_PRICE = 1200000;
+const SORT_PRICE = 'price';
+const SORT_PRICE_PER_SQM = 'pricePerSqm';
 
 export default class PropertyFilter extends LightningElement {
     searchKey = '';
     maxPrice = MAX_PRICE;
     minBedrooms = 0;
     minBathrooms = 0;
+    sortBy = SORT_PRICE;
+
+    sortByOptions = [
+        { label: 'Price', value: SORT_PRICE },
+        { label: 'Price per m²', value: SORT_PRICE_PER_SQM }
+    ];
 
     @wire(MessageContext)
     messageContext;
@@ -24,6 +32,11 @@ export default class PropertyFilter extends LightningElement {
 
     handleSearchKeyChange(event) {
         this.searchKey = event.detail.value;
+        this.fireChangeEvent();
+    }
+
+    handleSortByChange(event) {
+        this.sortBy = event.detail.value;
         this.fireChangeEvent();
     }
 
@@ -53,7 +66,8 @@ export default class PropertyFilter extends LightningElement {
                 searchKey: this.searchKey,
                 maxPrice: this.maxPrice,
                 minBedrooms: this.minBedrooms,
-                minBathrooms: this.minBathrooms
+                minBathrooms: this.minBathrooms,
+                sortBy: this.sortBy
             };
             publish(this.messageContext, FILTERSCHANGEMC, filters);
         }, DELAY);

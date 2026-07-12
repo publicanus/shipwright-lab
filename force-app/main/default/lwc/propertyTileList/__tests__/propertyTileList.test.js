@@ -97,7 +97,8 @@ describe('c-property-tile-list', () => {
             searchKey: 'victorian',
             maxPrice: 400000,
             minBedrooms: 4,
-            minBathrooms: 2
+            minBathrooms: 2,
+            sortBy: 'pricePerSqm'
         };
         publish(MessageContext, FILTERSCHANGEMC, messagePayload);
 
@@ -112,6 +113,7 @@ describe('c-property-tile-list', () => {
         expect(receivedPayload.maxPrice).toBe(messagePayload.maxPrice);
         expect(receivedPayload.minBedrooms).toBe(messagePayload.minBedrooms);
         expect(receivedPayload.minBathrooms).toBe(messagePayload.minBathrooms);
+        expect(receivedPayload.sortBy).toBe(messagePayload.sortBy);
     });
 
     it('sends propertySelected event when c-property-tile selected', async () => {
