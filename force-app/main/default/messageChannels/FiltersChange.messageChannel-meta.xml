@@ -17,5 +17,10 @@
         <description>Minimum number of Bathrooms</description>
         <fieldName>minBathrooms</fieldName>
     </lightningMessageFields>
+    <lightningMessageFields>
+        <description
+        >Sort choice for the property list (price or pricePerSqm)</description>
+        <fieldName>sortBy</fieldName>
+    </lightningMessageFields>
     <masterLabel>Filters Change Message Channel</masterLabel>
 </LightningMessageChannel>

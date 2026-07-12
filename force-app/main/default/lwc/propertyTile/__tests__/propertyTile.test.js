@@ -7,8 +7,19 @@ const PROPERTY = {
     Beds__c: '3',
     Baths__c: '1',
     Price__c: '450000',
+    Price_Per_Sqm__c: '3000',
     Thumbnail__c: 'some-property.jpg',
     Id: '12345'
+};
+
+const PROPERTY_WITHOUT_AREA = {
+    Name: 'No Area House',
+    City__c: 'Some City',
+    Beds__c: '3',
+    Baths__c: '1',
+    Price__c: '450000',
+    Thumbnail__c: 'some-property.jpg',
+    Id: '67890'
 };
 
 describe('c-property-tile', () => {
@@ -46,6 +57,33 @@ describe('c-property-tile', () => {
             'lightning-formatted-number'
         );
         expect(priceEl.value).toBe(PROPERTY.Price__c);
+    });
+
+    it('displays the price-per-square-meter figure alongside price when area is recorded', () => {
+        const element = createElement('c-property-tile', {
+            is: PropertyTile
+        });
+        element.property = PROPERTY;
+        document.body.appendChild(element);
+
+        const formattedNumbers = element.shadowRoot.querySelectorAll(
+            'lightning-formatted-number'
+        );
+        expect(formattedNumbers.length).toBe(2);
+        expect(formattedNumbers[1].value).toBe(PROPERTY.Price_Per_Sqm__c);
+    });
+
+    it('shows no price-per-square-meter figure when area is not recorded', () => {
+        const element = createElement('c-property-tile', {
+            is: PropertyTile
+        });
+        element.property = PROPERTY_WITHOUT_AREA;
+        document.body.appendChild(element);
+
+        const formattedNumbers = element.shadowRoot.querySelectorAll(
+            'lightning-formatted-number'
+        );
+        expect(formattedNumbers.length).toBe(1);
     });
 
     it('displays the correct background image in the tile', () => {

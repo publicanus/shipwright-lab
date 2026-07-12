@@ -9,7 +9,8 @@ const DEFAULT_SEARCH_CRITERIA = {
     searchKey: '',
     maxPrice: MAX_PRICE,
     minBedrooms: 0,
-    minBathrooms: 0
+    minBathrooms: 0,
+    sortBy: 'price'
 };
 
 describe('c-property-filter', () => {
@@ -57,7 +58,8 @@ describe('c-property-filter', () => {
             searchKey: 'Boston',
             maxPrice: MAX_PRICE,
             minBedrooms: 0,
-            minBathrooms: 0
+            minBathrooms: 0,
+            sortBy: 'price'
         };
 
         // Wait for any asynchronous DOM updates
@@ -96,7 +98,8 @@ describe('c-property-filter', () => {
             searchKey: '',
             maxPrice: 60000,
             minBedrooms: 0,
-            minBathrooms: 0
+            minBathrooms: 0,
+            sortBy: 'price'
         };
 
         // Wait for any asynchronous DOM updates
@@ -135,7 +138,8 @@ describe('c-property-filter', () => {
             searchKey: '',
             maxPrice: MAX_PRICE,
             minBedrooms: 2,
-            minBathrooms: 0
+            minBathrooms: 0,
+            sortBy: 'price'
         };
 
         // Wait for any asynchronous DOM updates
@@ -174,7 +178,8 @@ describe('c-property-filter', () => {
             searchKey: '',
             maxPrice: MAX_PRICE,
             minBedrooms: 0,
-            minBathrooms: 2
+            minBathrooms: 2,
+            sortBy: 'price'
         };
 
         // Wait for any asynchronous DOM updates
@@ -271,5 +276,76 @@ describe('c-property-filter', () => {
         expect(sliderEls[1].value).toBe(DEFAULT_SEARCH_CRITERIA.minBedrooms);
         // Check for default minBathrooms value
         expect(sliderEls[2].value).toBe(DEFAULT_SEARCH_CRITERIA.minBathrooms);
+    });
+
+    it('offers Price and Price per m² with Price selected by default', () => {
+        const element = createElement('c-property-filter', {
+            is: PropertyFilter
+        });
+        document.body.appendChild(element);
+
+        const comboboxEl =
+            element.shadowRoot.querySelector('lightning-combobox');
+        expect(comboboxEl.value).toBe('price');
+        expect(comboboxEl.options).toEqual([
+            { label: 'Price', value: 'price' },
+            { label: 'Price per m²', value: 'pricePerSqm' }
+        ]);
+    });
+
+    it('fires the change event with sortBy pricePerSqm when that sort is selected', async () => {
+        const element = createElement('c-property-filter', {
+            is: PropertyFilter
+        });
+        document.body.appendChild(element);
+
+        const comboboxEl =
+            element.shadowRoot.querySelector('lightning-combobox');
+        comboboxEl.dispatchEvent(
+            new CustomEvent('change', {
+                detail: { value: 'pricePerSqm' }
+            })
+        );
+
+        jest.runAllTimers();
+        await flushPromises();
+
+        expect(publish).toHaveBeenCalledWith(undefined, FILTERSCHANGEMC, {
+            ...DEFAULT_SEARCH_CRITERIA,
+            sortBy: 'pricePerSqm'
+        });
+    });
+
+    it('keeps the selected sort choice when another filter changes afterwards', async () => {
+        const element = createElement('c-property-filter', {
+            is: PropertyFilter
+        });
+        document.body.appendChild(element);
+
+        const comboboxEl =
+            element.shadowRoot.querySelector('lightning-combobox');
+        comboboxEl.dispatchEvent(
+            new CustomEvent('change', {
+                detail: { value: 'pricePerSqm' }
+            })
+        );
+        jest.runAllTimers();
+        await flushPromises();
+
+        const lightningInputEl =
+            element.shadowRoot.querySelector('lightning-input');
+        lightningInputEl.dispatchEvent(
+            new CustomEvent('change', {
+                detail: { value: 'Boston' }
+            })
+        );
+        jest.runAllTimers();
+        await flushPromises();
+
+        expect(publish).toHaveBeenLastCalledWith(undefined, FILTERSCHANGEMC, {
+            ...DEFAULT_SEARCH_CRITERIA,
+            searchKey: 'Boston',
+            sortBy: 'pricePerSqm'
+        });
     });
 });

@@ -19,6 +19,7 @@ export default class PropertyTileList extends LightningElement {
     maxPrice = 9999999;
     minBedrooms = 0;
     minBathrooms = 0;
+    sortBy = 'price';
 
     @wire(MessageContext)
     messageContext;
@@ -29,7 +30,8 @@ export default class PropertyTileList extends LightningElement {
         minBedrooms: '$minBedrooms',
         minBathrooms: '$minBathrooms',
         pageSize: '$pageSize',
-        pageNumber: '$pageNumber'
+        pageNumber: '$pageNumber',
+        sortBy: '$sortBy'
     })
     properties;
 
@@ -53,6 +55,7 @@ export default class PropertyTileList extends LightningElement {
         this.maxPrice = filters.maxPrice;
         this.minBedrooms = filters.minBedrooms;
         this.minBathrooms = filters.minBathrooms;
+        this.sortBy = filters.sortBy;
     }
 
     handlePreviousPage() {

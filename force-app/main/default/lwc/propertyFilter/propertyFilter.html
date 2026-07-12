@@ -7,6 +7,12 @@
         ></lightning-button>
 
         <div class="slds-var-m-around_medium">
+            <lightning-combobox
+                label="Sort By"
+                value={sortBy}
+                options={sortByOptions}
+                onchange={handleSortByChange}
+            ></lightning-combobox>
             <lightning-input
                 label="Search Key"
                 type="text"
