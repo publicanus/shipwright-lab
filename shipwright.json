@@ -13,6 +13,9 @@
             "command": "npm run prettier:verify && npm run lint && npm run test:unit"
         }
     ],
+    "environment": {
+        "setup": "bash lab/org-setup.sh"
+    },
     "provisioned_files": [
         {
             "path": ".shipwright/rules/dry.md",

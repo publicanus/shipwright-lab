@@ -100,6 +100,8 @@ run the same intent at the same tier, and compare the two runs' notebook entries
 - Verify for the salesforce stack uses shipwright's framework default (static Code Analyzer
   over `force-app`) — deliberately not overridden in `shipwright.json`. Developers run
   blast-radius Apex tests in-build; the full regression belongs to CI/ship.
-- `environment.setup` is not wired yet: a salesforce build with no `environment.setup` asks
-  the operator which org to target (the org gate). Wiring it to the scratch recipe is an open
-  choice to settle on the first flight and record here.
+- `environment.setup` is wired to `lab/org-setup.sh`, which delegates to shipwright's own
+  scratch recipe (`sf-env-setup.sh`): per-worktree alias, create-if-missing, deleted with the
+  worktree. Settled at setup rather than left to the build's org gate, because that gate can
+  only verify an org that already exists — it cannot create the per-run scratch org this lab
+  depends on, and hand-creating one per run is exactly the toil the lab avoids.
