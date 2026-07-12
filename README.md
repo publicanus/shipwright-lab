@@ -1,6 +1,19 @@
-# Dreamhouse Lightning Web Components Sample Application
+# shipwright-lab
 
-[![CI Workflow](https://github.com/trailheadapps/dreamhouse-lwc/workflows/CI/badge.svg)](https://github.com/trailheadapps/dreamhouse-lwc/actions?query=workflow%3ACI) [![Packaging Workflow](https://github.com/trailheadapps/dreamhouse-lwc/workflows/Packaging/badge.svg)](https://github.com/trailheadapps/dreamhouse-lwc/actions?query=workflow%3APackaging) [![codecov](https://codecov.io/gh/trailheadapps/dreamhouse-lwc/branch/main/graph/badge.svg)](https://codecov.io/gh/trailheadapps/dreamhouse-lwc)
+A laboratory fixture for the [shipwright](https://github.com/publicanus/shipwright) agentic
+delivery framework: a real Salesforce codebase against which the full pipeline
+(refine → build → ship → retro) runs end-to-end, under controlled and resettable conditions.
+See `lab/RUNBOOK.md` for the lab protocol.
+
+This repository is a fork of
+[trailheadapps/dreamhouse-lwc](https://github.com/trailheadapps/dreamhouse-lwc), Salesforce's
+Dreamhouse sample application (Apache-2.0 — see LICENSE). The upstream CI and packaging
+workflows were replaced by a single org-less static-sanity job; the application itself is
+unchanged. The original application documentation follows.
+
+---
+
+# Dreamhouse Lightning Web Components Sample Application
 
 > [!IMPORTANT]
 > This is the modern Lightning Web Components version of the Dreamhouse sample application. If you are looking for the legacy Aura version, click [here](https://github.com/trailheadapps/dreamhouse-sfdx).
