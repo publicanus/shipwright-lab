@@ -1,6 +1,14 @@
 {
     "enabledPlugins": {
-        "shipwright@spire": true,
-        "salesforce-docs-extractor@spire": true
+        "salesforce-docs-extractor@spire": true,
+        "sfmate@sfmate-marketplace": true
+    },
+    "extraKnownMarketplaces": {
+        "sfmate-marketplace": {
+            "source": {
+                "source": "directory",
+                "path": "/Users/jaapbranderhorst/IdeaProjects/sfmate"
+            }
+        }
     }
 }
