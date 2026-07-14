@@ -10,6 +10,7 @@ This repo is delivered with the `sfmate` + `mate-core` plugins (four agents acro
 
 ## Repo facts
 
+- Tracker: GitHub Issues (`gh`).
 - Salesforce DX project (dreamhouse fork). Org strategy: scratch orgs off the DevHub; `lab/org-setup.sh <alias>` provisions one.
 - CI: `.github/workflows/ci.yml` (prettier, lint, LWC unit tests). Org-based validation per the plugin's `cicd` skill templates is a candidate once DevHub secrets are configured — see the plugin README.
 - `npm run test:unit` for LWC; Apex tests run against the org via `sf apex run test` (always `--wait`).
