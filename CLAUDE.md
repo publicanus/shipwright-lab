@@ -1,6 +1,6 @@
 # Working agreement
 
-The working agreement — proportionality, triage, refine, build, review, ship, and the `NOTES.md` ledger duty — is injected into every session by the sfmate plugin (single-sourced in the plugin's `agreement.md`; amendments are PRs on publicanus/sfmate, never a local copy). The lines below are this repo's configuration, which the agreement defers to.
+The working agreement — proportionality, triage, refine, build, review, ship, and the `NOTES.md` ledger duty — is injected into every session by the plugins: the discipline from mate-core's `agreement.md`, the Salesforce binding from sfmate's `edition.md` (amendments are PRs on those repos, never a local copy). The lines below are this repo's configuration, which the agreement defers to.
 
 - Tracker: GitHub Issues in this repo, via `gh`.
 - Orgs: scratch orgs from the DevHub, one per worktree — `lab/org-setup.sh <alias>` provisions one.
