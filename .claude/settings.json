@@ -1,13 +1,21 @@
 {
     "enabledPlugins": {
         "salesforce-docs-extractor@spire": true,
-        "sfmate@sfmate-marketplace": true
+        "sfmate@sfmate-marketplace": true,
+        "mate-core@sfmate-marketplace": true,
+        "langfuse-observability@langfuse-observability": true
     },
     "extraKnownMarketplaces": {
         "sfmate-marketplace": {
             "source": {
                 "source": "directory",
                 "path": "/Users/jaapbranderhorst/IdeaProjects/sfmate"
+            }
+        },
+        "langfuse-observability": {
+            "source": {
+                "source": "github",
+                "repo": "langfuse/Claude-Observability-Plugin"
             }
         }
     }
