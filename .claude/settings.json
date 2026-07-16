@@ -15,7 +15,7 @@
         "langfuse-observability": {
             "source": {
                 "source": "github",
-                "repo": "langfuse/Claude-Observability-Plugin"
+                "repo": "publicanus/claude-observability-plugin"
             }
         }
     }
